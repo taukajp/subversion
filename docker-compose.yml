@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  svn:
+    build: .
+    image: svnserver
+    container_name: mysvnserver
+
+    environment:
+      - SVN_DEFAULT_USER=admin
+      - SVN_DEFAULT_USER_PASSWD=manager
+      - SVN_DEFAULT_REPOSITORY=default
+
+    volumes:
+      - ./repos:/var/svn/repos
+      - ./auth:/etc/apache2/auth
+
+    ports:
+      - "8080:80"
+
+    restart: unless-stopped
+
+# volumes:
+  # svn_root: null
+  # auth: null
